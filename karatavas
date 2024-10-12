@@ -76,10 +76,10 @@ def hangman_game(word):
             continue
         if not inp[0].isalpha():
             clear()
-            print("Wrong choice!! Try Again")
+            print("Nepareizi! Mēģini vēlreiz.")
         if inp.upper() in incorrect:
             clear()
-            print("Already tried!!")
+            print("Mēģini vēlreiz!")
             continue
 
         if inp.upper() not in correct_letters:
@@ -89,9 +89,9 @@ def hangman_game(word):
             if chances == len(hangman_values):
                 print()
                 clear()
-                print("\tGame Over!!")
+                print("\tSpēle beigusies!")
                 print_hangman(hangman_values)
-                print("The word is :", word.upper())
+                print("Vārds ir :", word.upper())
                 break
         else:
             for i in range(len(word)):
@@ -99,19 +99,19 @@ def hangman_game(word):
                     word_display[i] = inp.upper()
             if check_win(word_display):
                 clear()
-                print("\tCongratulations!")
+                print("\tApsveicu!")
                 print_hangman_win()
-                print("The word is :", word.upper())
+                print("Vārds ir :", word.upper())
                 break
 
 if __name__ == "__main__":
     clear()
 
-    topics = {1: "DC characters", 2:"Marvel characters", 3:"Anime characters"}
+    topics = {1: "Latvijas pilsētas", 2:"Latvijas upes", 3:"Latvijas ezeri"}
  
-    dataset = {"DC characters":["SUPERMAN", "JOKER", "HARLEY QUINN", "GREEN LANTERN", "FLASH", "WONDER WOMAN", "AQUAMAN", "MARTIAN MANHUNTER", "BATMAN"],\
-                "Marvel characters":["CAPTAIN AMERICA", "IRON MAN", "THANOS", "HAWKEYE", "BLACK PANTHER", "BLACK WIDOW"],
-                "Anime characters":["MONKEY D. LUFFY", "RORONOA ZORO", "LIGHT YAGAMI", "MIDORIYA IZUKU"]
+    dataset = {"Latvijas pilsētas":["SUPERMAN", "JOKER", "HARLEY QUINN", "GREEN LANTERN", "FLASH", "WONDER WOMAN", "AQUAMAN", "MARTIAN MANHUNTER", "BATMAN"],\
+                "Latvijas pilsētas":["CAPTAIN AMERICA", "IRON MAN", "THANOS", "HAWKEYE", "BLACK PANTHER", "BLACK WIDOW"],
+                "Latvijas ezeri":["MONKEY D. LUFFY", "RORONOA ZORO", "LIGHT YAGAMI", "MIDORIYA IZUKU"]
                 }
 
     while True:
@@ -124,19 +124,19 @@ if __name__ == "__main__":
             print("Press", len(topics) + 1, "to quit")
             print()
         try:
-            choice = int(input("Enter your choice = "))
+            choice = int(input("Ievadi izvēli = "))
         except ValueError:
             clear()
-            print("Wrong choice!! Try again")
+            print("Nepareizi! Mēģini vēlreiz")
             continue
 
         if choice > len(topics)+1:
             clear()
-            print("No such topic!! Try again.")
+            print("Nav tādas izvēles! Mēģini vēlreiz.")
             continue
         elif choice == len(topics)+1:
             print()
-            print("Thank you for playing!")
+            print("Paldies par spēli!")
             break
         
         chosen_topic = topics[choice]
