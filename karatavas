@@ -1,44 +1,86 @@
 import random
 
-"""Nejauši izvēlēsies vienu no vārdiem."""
-words = ["migla", "saule", "debesis"]
-print("Sveicināti spēlē karātavas")
-def izvēlēties_vārdu():
-word_list= ["migla", "saule"]
-word = random.choice(word_list).lower()
+word_list = ["migla", "saule", "debesis"]
+
+def get_word():
+    return random.choice(word_list).lower()
 
 guessed_correctly = []
-guessed_icorrectly = []
+guessed_incorrectly = []
 tries = 6
-hangman count = - 1
+hangman_count = 0
+word = get_word()  
+print("Spēlēsim karātavas!")
+
+# Lai attēlotu karātavas
+grafiks = [
+    """
+    +---+
+        |
+        |
+        |
+      ===""", """
+    +---+
+    |   |
+    0   |
+        |
+      ===""", """
+    +---+
+    |   |
+    0   |
+   /|   |
+      ===""", """
+    +---+
+    |   |
+    0   |
+   /|\\  |
+      ===""", """
+    +---+
+    |   |
+    0   |
+   /|\\  |
+   /    ===""", """
+    +---+
+    |   |
+    0   |
+   /|\\  |
+   / \\  ==="""]
+
 while tries > 0:
-        output = ''
-        for letter in word:
-            if letter in guessed_correctly
-                output += letter
-             else:
-        output += '_ '
-    if output == word
-        break
-    print("Uzmini vārdu:")
-    print(tries, " iespējas palikušas")
-    guess = input().lower()
-     if guess in guessed correctly or guess in guesses_incorecctly:
-        print("Šo burtu jau minēji", guess)
-    elif guess in word:
-        print("Uzminēji pareizo burtu")
-    else:
-        print("Nepareizais burts")
-        hangman_count = hangman_count +1
-        tries = tries -1
-        guessed_incorrectly.append(guess)
-        print(hangman_count)
-    if tries > 0:
+    output = ''
+    for letter in word:
+        if letter in guessed_correctly:
+            output += letter
+        else:
+            output += '_ '
+
+    print(f"Uzmini vārdu: {output}")
+
+    # Lai pārbaudītu vai spēlētājs ir uzvarējis
+    if output.replace(' ', '') == word:  
         print("Uzminēji vārdu! Uzvarēji!")
-    else:
-        print("Diemžēl uzminēji nepareizo burtu. Mēģini vēlreiz")
+        break
 
-        
+    print(f"Tev ir {tries} iespējas palikušas")
     
+    # Iegūt spēlētāja minējumu
+    guess = input("Ievadi burtu: ").lower()
 
-      
+    # Pārbauda vai burts jau tika minēts
+    if guess in guessed_correctly or guess in guessed_incorrectly:
+        print(f"Šo burtu jau minēji: {guess}")
+    elif guess in word:
+        print(f"Pareizi! Burts '{guess}' ir vārdā.")
+        guessed_correctly.append(guess)
+    else:
+        print(f"Nepareizi! Burts '{guess}' nav vārdā.")
+        guessed_incorrectly.append(guess)
+        hangman_count += 1
+        tries -= 1
+        if hangman_count < len(grafiks):  # To avoid out-of-range error
+            print(grafiks[hangman_count])
+
+# Pārbauda vai spēlētājs zaudēja
+if tries == 0:
+    print(f"Diemžēl neuzminēji vārdu. Vārds bija: {word}. Mēģini vēlreiz!")
+
