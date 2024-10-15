@@ -1,144 +1,44 @@
 import random
-import os
 
-def clear():
-    os.system("cls")
+"""Nejauši izvēlēsies vienu no vārdiem."""
+words = ["migla", "saule", "debesis"]
+print("Sveicināti spēlē karātavas")
+def izvēlēties_vārdu():
+word_list= ["migla", "saule"]
+word = random.choice(word_list).lower()
 
+guessed_correctly = []
+guessed_icorrectly = []
+tries = 6
+hangman count = - 1
+while tries > 0:
+        output = ''
+        for letter in word:
+            if letter in guessed_correctly
+                output += letter
+             else:
+        output += '_ '
+    if output == word
+        break
+    print("Uzmini vārdu:")
+    print(tries, " iespējas palikušas")
+    guess = input().lower()
+     if guess in guessed correctly or guess in guesses_incorecctly:
+        print("Šo burtu jau minēji", guess)
+    elif guess in word:
+        print("Uzminēji pareizo burtu")
+    else:
+        print("Nepareizais burts")
+        hangman_count = hangman_count +1
+        tries = tries -1
+        guessed_incorrectly.append(guess)
+        print(hangman_count)
+    if tries > 0:
+        print("Uzminēji vārdu! Uzvarēji!")
+    else:
+        print("Diemžēl uzminēji nepareizo burtu. Mēģini vēlreiz")
 
-def print_hangman(values):
-    print()
-    print("\t +--------+")
-    print("\t |       | |")
-    print("\t {}       | |".format(values[0]))
-    print("\t{}{}{}      | |".format(values[1], values[2], values[3]))
-    print("\t {}       | |".format(values[4]))
-    print("\t{} {}      | |".format(values[5],values[6]))
-    print("\t         | |")
-    print("  _______________|_|___")
-    print("  `````````````````````")
-    print()
-
-def print_hangman_win():
-    print()
-    print("\t +--------+")
-    print("\t         | |")
- 
-    print("\t         | |")
-    print("\t O       | |")
-    print("\t/|\\      | |")
-    print("\t |       | |")
-    print("  ______/_\\______|_|___")
-    print("  `````````````````````")
-    print()
-
-word_display = []
-
-def print_word(values):
-    print()
-    print("\t", end="")
-    for x in values:
-        print(x, end="")
-    print()
-
-def check_win(values):
-    for char in values:
-        if char == '_':
-            return False
-    return True
-
-def hangman_game(word):
-    clear()
-    word_display = []
-    correct_letters = []
-    incorrect = []
-    chances = 0
-    hangman_values = ['O', '/', '|', '\\', '|', '/', '\\']
-    show_hangman_values = [' ', ' ', ' ', ' ', ' ', ' ', ' ']
-    for char in word:
-        if char.isalpha():
-            word_display.append('_')
-            correct_letters.append(char.upper())
-        else:
-            word_display.append(char)
-
-    while True:
-        clear()
-        print_hangman(show_hangman_values)
-        print_word(word_display)
-        print()
-        print("Incorrect characters: ", incorrect)
-        print()
-
-        inp = input("Enter a character = ")
-        if len(inp) != 1:
-            clear()
-            print("Wrong choice!! Try Again")
-            continue
-        if not inp[0].isalpha():
-            clear()
-            print("Nepareizi! Mēģini vēlreiz.")
-        if inp.upper() in incorrect:
-            clear()
-            print("Mēģini vēlreiz!")
-            continue
-
-        if inp.upper() not in correct_letters:
-            incorrect.append(inp.upper())
-            show_hangman_values[chances] = hangman_values[chances]
-            chances = chances + 1
-            if chances == len(hangman_values):
-                print()
-                clear()
-                print("\tSpēle beigusies!")
-                print_hangman(hangman_values)
-                print("Vārds ir :", word.upper())
-                break
-        else:
-            for i in range(len(word)):
-                if word[i].upper() == inp.upper():
-                    word_display[i] = inp.upper()
-            if check_win(word_display):
-                clear()
-                print("\tApsveicu!")
-                print_hangman_win()
-                print("Vārds ir :", word.upper())
-                break
-
-if __name__ == "__main__":
-    clear()
-
-    topics = {1: "Latvijas pilsētas", 2:"Latvijas upes", 3:"Latvijas ezeri"}
- 
-    dataset = {"Latvijas pilsētas":["SUPERMAN", "JOKER", "HARLEY QUINN", "GREEN LANTERN", "FLASH", "WONDER WOMAN", "AQUAMAN", "MARTIAN MANHUNTER", "BATMAN"],\
-                "Latvijas pilsētas":["CAPTAIN AMERICA", "IRON MAN", "THANOS", "HAWKEYE", "BLACK PANTHER", "BLACK WIDOW"],
-                "Latvijas ezeri":["MONKEY D. LUFFY", "RORONOA ZORO", "LIGHT YAGAMI", "MIDORIYA IZUKU"]
-                }
-
-    while True:
-        print()
-        print("---------------------")
-        print("\t\tGAME MENU")
-        print("---------------------")
-        for key in topics:
-            print("Press", key, "to select", topics[key])
-            print("Press", len(topics) + 1, "to quit")
-            print()
-        try:
-            choice = int(input("Ievadi izvēli = "))
-        except ValueError:
-            clear()
-            print("Nepareizi! Mēģini vēlreiz")
-            continue
-
-        if choice > len(topics)+1:
-            clear()
-            print("Nav tādas izvēles! Mēģini vēlreiz.")
-            continue
-        elif choice == len(topics)+1:
-            print()
-            print("Paldies par spēli!")
-            break
         
-        chosen_topic = topics[choice]
-        ran = random.choice(dataset[chosen_topic])
-        hangman_game(ran)
+    
+
+      
