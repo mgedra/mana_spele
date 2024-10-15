@@ -83,7 +83,7 @@ def karatavu_spele():
             guessed_incorrectly.append(guess)
             hangman_count += 1
             tries -= 1
-            if hangman_count < len(grafiks):  # To avoid out-of-range error
+            if hangman_count < len(grafiks):  
                 print(grafiks[hangman_count])
 
     # Pārbauda vai spēlētājs zaudēja
