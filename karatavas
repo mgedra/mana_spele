@@ -1,86 +1,110 @@
 import random
 
-word_list = ["migla", "saule", "debesis"]
+word_list = [
+    ("Laikapstākļi", ["auksti", "karsti", "miglaini", "lietaini"]),
+    ("Emocijas", ["skumjas", "laime", "apmulsums"]),
+    ("Ķermeņa daļas", ["rokas", "kājas", "plaukstas", "pirksti", "deguns"])
+]
 
 def get_word():
-    return random.choice(word_list).lower()
+    category, words = random.choice(word_list)  
+    return random.choice(words).lower(), category
 
-guessed_correctly = []
-guessed_incorrectly = []
-tries = 6
-hangman_count = 0
-word = get_word()  
-print("Spēlēsim karātavas!")
+def karatavu_spele():
+    guessed_correctly = []
+    guessed_incorrectly = []
+    tries = 6
+    hangman_count = 0
+    word = get_word()  
+    print("Spēlēsim karātavas!")
 
-# Lai attēlotu karātavas
-grafiks = [
-    """
-    +---+
-        |
-        |
-        |
-      ===""", """
-    +---+
-    |   |
-    0   |
-        |
-      ===""", """
-    +---+
-    |   |
-    0   |
-   /|   |
-      ===""", """
-    +---+
-    |   |
-    0   |
-   /|\\  |
-      ===""", """
-    +---+
-    |   |
-    0   |
-   /|\\  |
-   /    ===""", """
-    +---+
-    |   |
-    0   |
-   /|\\  |
-   / \\  ==="""]
+    # Lai attēlotu karātavas
+    grafiks = [
+        """
+        +---+
+            |
+            |
+            |
+          ===""", """
+        +---+
+        |   |
+        0   |
+            |
+          ===""", """
+        +---+
+        |   |
+        0   |
+       /|   |
+          ===""", """
+        +---+
+        |   |
+        0   |
+       /|\\  |
+          ===""", """
+        +---+
+        |   |
+        0   |
+       /|\\  |
+       /    ===""", """
+        +---+
+        |   |
+        0   |
+       /|\\  |
+       / \\  ==="""]
 
-while tries > 0:
-    output = ''
-    for letter in word:
-        if letter in guessed_correctly:
-            output += letter
+    while tries > 0:
+        output = ''
+        for letter in word:
+            if letter in guessed_correctly:
+                output += letter
+            else:
+                output += '_ '
+
+        print(f"Uzmini vārdu: {output}")
+
+        # Lai pārbaudītu vai spēlētājs ir uzvarējis
+        if output.replace(' ', '') == word:  
+            print("Uzminēji vārdu! Uzvarēji!")
+            break
+
+        print(f"Tev ir palikušas '{tries}' iespējas")
+        
+        # Iegūt spēlētāja minējumu
+        guess = input("Ievadi burtu: ").lower()
+
+        # Pārbauda vai burts jau tika minēts
+        if guess in guessed_correctly or guess in guessed_incorrectly:
+            print(f"Šo burtu jau minēji: {guess}")
+        elif guess in word:
+            print(f"Pareizi! Burts '{guess}' ir vārdā.")
+            guessed_correctly.append(guess)
         else:
-            output += '_ '
+            print(f"Nepareizi! Burts '{guess}' nav vārdā.")
+            guessed_incorrectly.append(guess)
+            hangman_count += 1
+            tries -= 1
+            if hangman_count < len(grafiks):  
+                print(grafiks[hangman_count])
 
-    print(f"Uzmini vārdu: {output}")
+    # Pārbauda vai spēlētājs zaudēja
+    if tries == 0:
+        print(f"Diemžēl neuzminēji vārdu. Vārds bija: {word}. Mēģini vēlreiz!")
 
-    # Lai pārbaudītu vai spēlētājs ir uzvarējis
-    if output.replace(' ', '') == word:  
-        print("Uzminēji vārdu! Uzvarēji!")
-        break
+# Lai jautātu vai spēlētājs vēlas spēlēt vēlreiz
+def play_again():
+    while True:
+        answer = input("Vai vēlies spēlēt vēlreiz? (jā/nē): ").lower()
+        if answer in ["jā", "j",]:
+            return True
+        elif answer in ["nē", "n",]:
+            return False
+        else:
+            print("Lūdzu, ievadi 'jā' vai 'nē'.")
 
-    print(f"Tev ir {tries} iespējas palikušas")
-    
-    # Iegūt spēlētāja minējumu
-    guess = input("Ievadi burtu: ").lower()
-
-    # Pārbauda vai burts jau tika minēts
-    if guess in guessed_correctly or guess in guessed_incorrectly:
-        print(f"Šo burtu jau minēji: {guess}")
-    elif guess in word:
-        print(f"Pareizi! Burts '{guess}' ir vārdā.")
-        guessed_correctly.append(guess)
-    else:
-        print(f"Nepareizi! Burts '{guess}' nav vārdā.")
-        guessed_incorrectly.append(guess)
-        hangman_count += 1
-        tries -= 1
-        if hangman_count < len(grafiks):  # To avoid out-of-range error
-            print(grafiks[hangman_count])
-
-# Pārbauda vai spēlētājs zaudēja
-if tries == 0:
-    print(f"Diemžēl neuzminēji vārdu. Vārds bija: {word}. Mēģini vēlreiz!")
+# Spēle beidzas, ja nevēlas spēlēt
+while True:
+    karatavu_spele()  
+    if not play_again():  
+        print("Paldies par spēli!")
+        break  
 
