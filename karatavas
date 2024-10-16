@@ -1,6 +1,17 @@
 import random
 
-vārdu_saraksts = ["migla", "saule", "debesis", "rudens", "vasara", "ziema", "zibens"]
+vārdu_saraksts = ["migla", "saule", "debesis", "rudens", "vasara", "ziema", "zibens", "kokos", "upes", "kalns",
+    "sniegs", "mežs", "putns", "krāsa", "zvaigzne", "mēness", "debesis", "zeme", "vējš", "jūra",
+    "akmens", "māja", "logs", "durvis", "grāmata", "zieds", "krūms", "ceļš", "daba", "zāle",
+    "pilsēta", "ciems", "brīvdiena", "skola", "darbs", "laiks", "svētki", "sākums", "beigas", "pavasaris",
+    "vasara", "rudens", "ziema", "svētdiena", "sestdiena", "piektdiena", "ceturtdiena", "trešdiena", "otrdiena",
+    "pirmdiena", "vārds", "frāze", "skaņa", "mūzika", "deja", "spēle", "dators", "tālrunis", "internets",
+    "saldējums", "kafija", "tēja", "sula", "ūdens", "maize", "gaļa", "dārzenis", "augļi", "saldumi",
+    "pārvietošanās", "ceļojums", "piedzīvojums", "pastaiga", "brauciens", "darbs", "sēdēšana", "gulēšana", "pamošanās", "atpūta",
+    "laiks", "saule", "lapa", "raksts", "vārdi", "fragments", "pārskats", "secinājums", "grāmata", "raksts",
+    "mīlestība", "draudzība", "ģimene", "bērni", "vecāki", "suns", "kaķis", "putni", "zivis", "dzīvnieks",
+    "bikses", "krekls", "kleita", "sneakers", "jaka", "māksla", "glezna", "skulptūra", "stāsts", "teātris"
+                  ]
 
 def get_word():
     return random.choice(vārdu_saraksts).lower()
@@ -71,17 +82,17 @@ def karatavu_spele():
         print(f"Tev ir palikuši {mēģinājumi} mēģinājumi.\n")
         
         # Lai iegūtu minējumu no  spēlētāja. Funkcija input tiek izmantota, lai iegūtu ievadi no lietotāja
-        guess = input("Ievadi burtu: ").lower()
+        minējums = input("Ievadi burtu: ").lower()
 
         # Pārbaudīt vai burts jau tika minēts
-        if guess in uzminēts_pareizi or guess in uzminēts_nepareizi:
-            print(f"\nŠo burtu jau minēji: {guess}\n")
-        elif guess in vārds:
-            print(f"\nPareizi! Burts '{guess}' ir vārdā.\n")
-            uzminēts_pareizi.append(guess)
+        if minējums in uzminēts_pareizi or minējums in uzminēts_nepareizi:
+            print(f"\nŠo burtu jau minēji: {minējums}\n")
+        elif minējums in vārds:
+            print(f"\nPareizi! Burts '{minējums}' ir vārdā.\n")
+            uzminēts_pareizi.append(minējums)
         else:
-            print(f"\nNepareizi! Burts '{guess}' nav vārdā.\n")
-            uzminēts_nepareizi.append(guess)
+            print(f"\nNepareizi! Burts '{minējums}' nav vārdā.\n")
+            uzminēts_nepareizi.append(minējums)
             karātavu_atskaite += 1
             mēģinājumi -= 1
             if karātavu_atskaite < len(grafiks):  
@@ -108,4 +119,3 @@ while True:
     if not spēlēt_atkal():  
         print("\nPaldies par spēli!\n")
         break
-
