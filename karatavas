@@ -1,17 +1,17 @@
 import random
 
-word_list = ["migla", "saule", "debesis"]
+vārdu_saraksts = ["migla", "saule", "debesis", "rudens", "vasara", "ziema", "zibens"]
 
 def get_word():
-    return random.choice(word_list).lower()
+    return random.choice(vārdu_saraksts).lower()
 
 def karatavu_spele():
-    guessed_correctly = []
-    guessed_incorrectly = []
-    tries = 6
-    hangman_count = 0
-    word = get_word()  
-    print("Spēlēsim karātavas!")
+    uzminēts_pareizi = []
+    uzminēts_nepareizi = []
+    mēģinājumi = 6
+    karātavu_atskaite = 0
+    vārds = get_word()  
+    print("\nSpēlēsim karātavas!\n")
 
     # Lai attēlotu karātavas
     grafiks = [
@@ -50,60 +50,62 @@ def karatavu_spele():
         |   |
         0   |
        /|\\  |
-       / \\  ==="""]
-
-    while tries > 0:
+       / \\  ==="""
+    ]
+# output tiek izmantots, lai veidotu un attēlotu vārda stāvokli
+    while mēģinājumi > 0:
         output = ''
-        for letter in word:
-            if letter in guessed_correctly:
-                output += letter
+        for burts in vārds:
+            if burts in uzminēts_pareizi:
+                output += burts
             else:
                 output += '_ '
 
-        print(f"Uzmini vārdu: {output}")
+        print(f"\nUzmini vārdu: {output}\n")
 
-        # Lai pārbaudītu vai spēlētājs ir uzvarējis
-        if output.replace(' ', '') == word:  
-            print("Uzminēji vārdu! Uzvarēji!")
+        # Tiek pārbaudīts vai spēlētājs ir uzvarējis
+        if output.replace(' ', '') == vārds:  
+            print("\nUzminēji vārdu! Uzvarēji!\n")
             break
 
-        print(f"Tev ir palikuši {tries} mēģinājumi.")
+        print(f"Tev ir palikuši {mēģinājumi} mēģinājumi.\n")
         
-        # Iegūt spēlētāja minējumu
+        # Lai iegūtu minējumu no  spēlētāja. Funkcija input tiek izmantota, lai iegūtu ievadi no lietotāja
         guess = input("Ievadi burtu: ").lower()
 
-        # Pārbauda vai burts jau tika minēts
-        if guess in guessed_correctly or guess in guessed_incorrectly:
-            print(f"Šo burtu jau minēji: {guess}")
-        elif guess in word:
-            print(f"Pareizi! Burts '{guess}' ir vārdā.")
-            guessed_correctly.append(guess)
+        # Pārbaudīt vai burts jau tika minēts
+        if guess in uzminēts_pareizi or guess in uzminēts_nepareizi:
+            print(f"\nŠo burtu jau minēji: {guess}\n")
+        elif guess in vārds:
+            print(f"\nPareizi! Burts '{guess}' ir vārdā.\n")
+            uzminēts_pareizi.append(guess)
         else:
-            print(f"Nepareizi! Burts '{guess}' nav vārdā.")
-            guessed_incorrectly.append(guess)
-            hangman_count += 1
-            tries -= 1
-            if hangman_count < len(grafiks):  
-                print(grafiks[hangman_count])
+            print(f"\nNepareizi! Burts '{guess}' nav vārdā.\n")
+            uzminēts_nepareizi.append(guess)
+            karātavu_atskaite += 1
+            mēģinājumi -= 1
+            if karātavu_atskaite < len(grafiks):  
+                print(grafiks[karātavu_atskaite])
 
-    # Pārbauda vai spēlētājs zaudēja
-    if tries == 0:
-        print(f"Diemžēl neuzminēji vārdu. Vārds bija: {word}. Mēģini vēlreiz!")
+    # Pārbaudīt vai spēlētājs zaudēja
+    if mēģinājumi == 0:
+        print(f"\nDiemžēl neuzminēji vārdu. Vārds bija: {vārds}. Mēģini vēlreiz!\n")
 
 # Lai jautātu vai spēlētājs vēlas spēlēt vēlreiz
-def play_again():
+def spēlēt_atkal():
     while True:
-        answer = input("Vai vēlies spēlēt vēlreiz? (jā/nē): ").lower()
+        answer = input("\nVai vēlies spēlēt vēlreiz? (jā/nē): ").lower()
         if answer in ["jā", "j"]:
             return True
         elif answer in ["nē", "n"]:
             return False
         else:
-            print("Lūdzu, ievadi 'jā' vai 'nē'.")
+            print("\nLūdzu, ievadi 'jā' vai 'nē'.\n")
 
 # Spēle beidzas, ja nevēlas spēlēt
 while True:
     karatavu_spele()  
-    if not play_again():  
-        print("Paldies par spēli!")
+    if not spēlēt_atkal():  
+        print("\nPaldies par spēli!\n")
         break
+
